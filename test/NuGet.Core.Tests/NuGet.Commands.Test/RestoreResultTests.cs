@@ -78,13 +78,17 @@ namespace NuGet.Commands.Test
             // Arrange
             using (var td = TestFileSystemUtility.CreateRandomTestFolder())
             {
-                var path = Path.Combine(td, "project.lock.json");
+                var path = Path.Combine(td, ".tools", "project.lock.json");
                 var logger = new TestLogger();
                 var toolResult = new ToolRestoreResult(
+                    toolName: null,
                     success: true,
-                    restoreGraphs: null,
+                    lockFileTarget: null,
+                    fileTargetLibrary: null,
                     lockFilePath: path,
-                    lockFile: new LockFile());
+                    lockFile: new LockFile(),
+                    previousLockFile: null,
+                    relockFile: false);
                 var result = new RestoreResult(
                     success: true,
                     restoreGraphs: null,
@@ -104,7 +108,45 @@ namespace NuGet.Commands.Test
                     logger.DebugMessages);
                 Assert.True(File.Exists(path), $"The tool lock file should have been written: {path}");
                 Assert.Equal(1, logger.DebugMessages.Count);
-                Assert.Equal(1, logger.MinimalMessages.Count);
+            }
+        }
+        
+        [Fact]
+        public async Task RestoreResult_WritesToolSkipCommitToDebug()
+        {
+            // Arrange
+            using (var td = TestFileSystemUtility.CreateRandomTestFolder())
+            {
+                var path = Path.Combine(td, "tools", "project.lock.json");
+                var logger = new TestLogger();
+                var toolResult = new ToolRestoreResult(
+                    toolName: null,
+                    success: true,
+                    lockFileTarget: null,
+                    fileTargetLibrary: null,
+                    lockFilePath: path,
+                    lockFile: new LockFile(),
+                    previousLockFile: new LockFile(), // same lock file
+                    relockFile: false);
+                var result = new RestoreResult(
+                    success: true,
+                    restoreGraphs: null,
+                    compatibilityCheckResults: null,
+                    lockFile: new LockFile(),
+                    previousLockFile: new LockFile(), // same lock file
+                    lockFilePath: null,
+                    msbuild: new MSBuildRestoreResult("project", td, true),
+                    toolRestoreResults: new[] { toolResult });
+                
+                // Act
+                await result.CommitAsync(logger, CancellationToken.None);
+                
+                // Assert
+                Assert.Contains(
+                    $"Tool lock file has not changed. Skipping lock file write. Path: {path}",
+                    logger.DebugMessages);
+                Assert.False(File.Exists(path), $"The tool lock file should not have been written: {path}");
+                Assert.Equal(1, logger.DebugMessages.Count);
             }
         }
     }
