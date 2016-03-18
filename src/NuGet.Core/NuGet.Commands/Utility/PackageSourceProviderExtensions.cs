@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using NuGet.Configuration;
 
@@ -41,7 +42,7 @@ namespace NuGet.Commands
         private static void ValidateSource(string source)
         {
             Uri result;
-            if (!Uri.TryCreate(source, UriKind.Absolute, out result))
+            if (!Uri.TryCreate(source, UriKind.Absolute, out result) && !Directory.Exists(source))
             {
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Strings.InvalidSource, source));
             }
