@@ -52,7 +52,7 @@ namespace Commands.Test
                 var nupkgPath = Path.Combine(packageDir, package.Id + "." + package.Version + ".nupkg");
                 Assert.True(File.Exists(nupkgPath), nupkgPath + " does not exist");
 
-                var dllPath = Path.Combine(packageDir, "lib\\net40\\one.dll");
+                var dllPath = Path.Combine(packageDir, "lib" + Path.DirectorySeparatorChar + "net40" + Path.DirectorySeparatorChar + "one.dll");
                 Assert.True(File.Exists(dllPath), dllPath + " does not exist");
             }
         }
@@ -98,7 +98,7 @@ namespace Commands.Test
 
                 Assert.Equal(1139, new FileInfo(nupkgPath).Length);
 
-                var dllPath = Path.Combine(packageDir, "lib\\net40\\one.dll");
+                var dllPath = Path.Combine(packageDir, "lib" + Path.DirectorySeparatorChar + "net40" + Path.DirectorySeparatorChar + "one.dll");
                 Assert.True(File.Exists(dllPath), dllPath + " does not exist");
             }
         }
@@ -149,7 +149,7 @@ namespace Commands.Test
 
                 Assert.False(File.Exists(nupkgPath), nupkgPath + " does not exist");
 
-                var dllPath = Path.Combine(packageDir, "lib\\net40\\one.dll");
+                var dllPath = Path.Combine(packageDir, "lib" + Path.DirectorySeparatorChar + "net40" + Path.DirectorySeparatorChar + "one.dll");
                 Assert.False(File.Exists(dllPath), dllPath + " does not exist");
 
                 Assert.Equal(1, Directory.EnumerateFiles(packageDir).Count());
@@ -205,7 +205,7 @@ namespace Commands.Test
                 var filePath = Path.Combine(packageDir, package.Id + "." + package.Version + ".nupkg");
                 Assert.True(File.Exists(filePath), filePath + " does not exist");
 
-                var dllPath = Path.Combine(packageDir, "lib\\net40\\one.dll");
+                var dllPath = Path.Combine(packageDir, "lib" + Path.DirectorySeparatorChar + "net40" + Path.DirectorySeparatorChar + "one.dll");
                 Assert.True(File.Exists(dllPath), dllPath + " does not exist");
 
                 Assert.False(File.Exists(randomFile), randomFile + " does exist");
@@ -267,7 +267,7 @@ namespace Commands.Test
 
                 Assert.Equal(1016, new FileInfo(filePath).Length);
 
-                var dllPath = Path.Combine(packageDir, "lib\\net40\\one.dll");
+                var dllPath = Path.Combine(packageDir, "lib" + Path.DirectorySeparatorChar + "net40" + Path.DirectorySeparatorChar + "one.dll");
                 Assert.True(File.Exists(dllPath), dllPath + " does not exist");
             }
         }
@@ -298,7 +298,7 @@ namespace Commands.Test
                 var packageDir = Path.Combine(packagesDir, package.Id, package.Version);
                 Assert.False(Directory.Exists(packageDir), packageDir + " exist");
 
-                string filePathToLock = Path.Combine(packageDir, "lib\\net40\\two.dll");
+                string filePathToLock = Path.Combine(packageDir, "lib" + Path.DirectorySeparatorChar + "net40" + Path.DirectorySeparatorChar + "two.dll");
 
                 // Act
                 using (var stream = package.File.OpenRead())
@@ -334,7 +334,7 @@ namespace Commands.Test
 
                 Assert.Equal(1016, new FileInfo(filePath).Length);
 
-                var dllPath = Path.Combine(packageDir, "lib\\net40\\one.dll");
+                var dllPath = Path.Combine(packageDir, "lib" + Path.DirectorySeparatorChar + "net40" + Path.DirectorySeparatorChar + "one.dll");
                 Assert.True(File.Exists(dllPath), dllPath + " does not exist");
 
                 Assert.True(File.Exists(filePathToLock));

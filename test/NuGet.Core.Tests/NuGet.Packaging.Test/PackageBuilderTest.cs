@@ -41,14 +41,14 @@ namespace NuGet.Packaging.Test
             var set = new PackageDependencyGroup(NuGetFramework.AnyFramework, dependencies);
             builder.DependencyGroups.Add(set);
 
-            builder.Files.Add(CreatePackageFile(@"build\_._"));
-            builder.Files.Add(CreatePackageFile(@"content\_._"));
-            builder.Files.Add(CreatePackageFile(@"contentFiles\any\any\_._"));
-            builder.Files.Add(CreatePackageFile(@"lib\net45\_._"));
-            builder.Files.Add(CreatePackageFile(@"native\net45\_._"));
-            builder.Files.Add(CreatePackageFile(@"ref\net45\_._"));
-            builder.Files.Add(CreatePackageFile(@"runtimes\net45\_._"));
-            builder.Files.Add(CreatePackageFile(@"tools\_._"));
+            builder.Files.Add(CreatePackageFile(@"build" + Path.DirectorySeparatorChar + "_._"));
+            builder.Files.Add(CreatePackageFile(@"content" + Path.DirectorySeparatorChar + "_._"));
+            builder.Files.Add(CreatePackageFile(@"contentFiles" + Path.DirectorySeparatorChar + "any" + Path.DirectorySeparatorChar + "any" + Path.DirectorySeparatorChar + "_._"));
+            builder.Files.Add(CreatePackageFile(@"lib" + Path.DirectorySeparatorChar + "net45" + Path.DirectorySeparatorChar + "_._"));
+            builder.Files.Add(CreatePackageFile(@"native" + Path.DirectorySeparatorChar + "net45" + Path.DirectorySeparatorChar + "_._"));
+            builder.Files.Add(CreatePackageFile(@"ref" + Path.DirectorySeparatorChar + "net45" + Path.DirectorySeparatorChar + "_._"));
+            builder.Files.Add(CreatePackageFile(@"runtimes" + Path.DirectorySeparatorChar + "net45" + Path.DirectorySeparatorChar + "_._"));
+            builder.Files.Add(CreatePackageFile(@"tools" + Path.DirectorySeparatorChar + "_._"));
 
             using (var ms = new MemoryStream())
             {
@@ -204,8 +204,8 @@ namespace NuGet.Packaging.Test
                 Description = "Descriptions",
             };
             builder.Authors.Add("testAuthor");
-            builder.Files.Add(CreatePackageFile("contentFiles\\any\\any\\config\\config.xml"));
-            builder.Files.Add(CreatePackageFile("contentFiles\\cs\\net45\\code.cs.pp"));
+            builder.Files.Add(CreatePackageFile("contentFiles" + Path.DirectorySeparatorChar + "any" + Path.DirectorySeparatorChar + "any" + Path.DirectorySeparatorChar + "config" + Path.DirectorySeparatorChar + "config.xml"));
+            builder.Files.Add(CreatePackageFile("contentFiles" + Path.DirectorySeparatorChar + "cs" + Path.DirectorySeparatorChar + "net45" + Path.DirectorySeparatorChar + "code.cs.pp"));
 
             builder.ContentFiles.Add(new ManifestContentFiles()
             {
@@ -479,7 +479,7 @@ namespace NuGet.Packaging.Test
                 Description = "Descriptions",
             };
             builder.Authors.Add("testAuthor");
-            builder.Files.Add(CreatePackageFile("content\\winrt53\\one.txt"));
+            builder.Files.Add(CreatePackageFile("content" + Path.DirectorySeparatorChar + "winrt53" + Path.DirectorySeparatorChar + "one.txt"));
 
             using (var ms = new MemoryStream())
             {
@@ -515,7 +515,7 @@ namespace NuGet.Packaging.Test
                 Description = "Descriptions",
             };
             builder.Authors.Add("testAuthor");
-            builder.Files.Add(CreatePackageFile("content\\bar\\one.txt"));
+            builder.Files.Add(CreatePackageFile("content" + Path.DirectorySeparatorChar + "bar" + Path.DirectorySeparatorChar + "one.txt"));
 
             using (var ms = new MemoryStream())
             {
@@ -551,7 +551,7 @@ namespace NuGet.Packaging.Test
                 Description = "Descriptions",
             };
             builder.Authors.Add("testAuthor");
-            builder.Files.Add(CreatePackageFile("tools\\sl4\\one.dll"));
+            builder.Files.Add(CreatePackageFile("tools" + Path.DirectorySeparatorChar + "sl4" + Path.DirectorySeparatorChar + "one.dll"));
 
             using (var ms = new MemoryStream())
             {
@@ -587,7 +587,7 @@ namespace NuGet.Packaging.Test
                 Description = "Descriptions",
             };
             builder.Authors.Add("testAuthor");
-            builder.Files.Add(CreatePackageFile("tools\\foo\\one.dll"));
+            builder.Files.Add(CreatePackageFile("tools" + Path.DirectorySeparatorChar + "foo" + Path.DirectorySeparatorChar + "one.dll"));
 
             using (var ms = new MemoryStream())
             {
@@ -626,7 +626,7 @@ namespace NuGet.Packaging.Test
                 Description = "Descriptions",
             };
             builder.Authors.Add("testAuthor");
-            builder.Files.Add(CreatePackageFile(packagePath));
+            builder.Files.Add(CreatePackageFile(packagePath.Replace('\\', Path.DirectorySeparatorChar)));
 
             using (var ms = new MemoryStream())
             {
@@ -666,7 +666,7 @@ namespace NuGet.Packaging.Test
                 Description = "Descriptions",
             };
             builder.Authors.Add("testAuthor");
-            builder.Files.Add(CreatePackageFile(packagePath));
+            builder.Files.Add(CreatePackageFile(packagePath.Replace('\\', Path.DirectorySeparatorChar)));
 
             using (var ms = new MemoryStream())
             {
@@ -702,8 +702,8 @@ namespace NuGet.Packaging.Test
                 Description = "Descriptions",
             };
             builder.Authors.Add("testAuthor");
-            builder.Files.Add(CreatePackageFile("content\\web.config.install.xdt"));
-            builder.Files.Add(CreatePackageFile("content\\app.config.uninstall.xdt"));
+            builder.Files.Add(CreatePackageFile("content" + Path.DirectorySeparatorChar + "web.config.install.xdt"));
+            builder.Files.Add(CreatePackageFile("content" + Path.DirectorySeparatorChar + "app.config.uninstall.xdt"));
 
             using (var ms = new MemoryStream())
             {
@@ -743,7 +743,7 @@ namespace NuGet.Packaging.Test
                 Description = "Descriptions",
             };
             builder.Authors.Add("testAuthor");
-            builder.Files.Add(CreatePackageFile(packagePath));
+            builder.Files.Add(CreatePackageFile(packagePath.Replace('\\', Path.DirectorySeparatorChar)));
 
             using (var ms = new MemoryStream())
             {
@@ -784,7 +784,7 @@ namespace NuGet.Packaging.Test
                 Description = "Descriptions",
             };
             builder.Authors.Add("testAuthor");
-            builder.Files.Add(CreatePackageFile(packagePath));
+            builder.Files.Add(CreatePackageFile(packagePath.Replace('\\', Path.DirectorySeparatorChar)));
 
             using (var ms = new MemoryStream())
             {
@@ -824,7 +824,7 @@ namespace NuGet.Packaging.Test
                 new PackageReferenceSet(
                     NuGetFramework.Parse(".NET, Version=3.0"),
                     new[] { "one.dll" })};
-            builder.Files.Add(CreatePackageFile("lib\\one.dll"));
+            builder.Files.Add(CreatePackageFile("lib" + Path.DirectorySeparatorChar + "one.dll"));
 
             using (var ms = new MemoryStream())
             {
@@ -870,7 +870,7 @@ namespace NuGet.Packaging.Test
                 new PackageReferenceSet(
                     NuGetFramework.Parse(".NET, Version=3.0"),
                     new[] { "one.dll" })};
-            builder.Files.Add(CreatePackageFile("lib\\one.dll"));
+            builder.Files.Add(CreatePackageFile("lib" + Path.DirectorySeparatorChar + "one.dll"));
 
             using (var ms = new MemoryStream())
             {
@@ -916,7 +916,7 @@ namespace NuGet.Packaging.Test
                 new PackageReferenceSet(
                     NuGetFramework.UnsupportedFramework,
                     new[] { "one.dll" })};
-            builder.Files.Add(CreatePackageFile("lib\\one.dll"));
+            builder.Files.Add(CreatePackageFile("lib" + Path.DirectorySeparatorChar + "one.dll"));
 
             using (var ms = new MemoryStream())
             {
