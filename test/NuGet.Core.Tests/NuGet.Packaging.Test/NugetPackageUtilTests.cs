@@ -560,16 +560,16 @@ namespace Commands.Test
                 var packageVersionDirectory = Path.Combine(packageIdDirectory, package.Version.ToNormalizedString());
                 AssertDirectoryExists(packageIdDirectory);
                 AssertDirectoryExists(packageVersionDirectory);
-                AssertFileExists(packageVersionDirectory, "packageA.2.0.3.nupkg");
-                AssertFileExists(packageVersionDirectory, "packageA.nuspec");
-                AssertFileExists(packageVersionDirectory, @"lib", "net45", "A.dll");
+                AssertFileExists(packageVersionDirectory, "packageA.2.0.3.nupkg".ToLowerInvariant());
+                AssertFileExists(packageVersionDirectory, "packageA.nuspec".ToLowerInvariant());
+                AssertFileExists(packageVersionDirectory, @"lib", "net45", "A.dll".ToLowerInvariant());
 
-                var nupkgPath = Path.Combine(packageVersionDirectory, "packageA.2.0.3.nupkg");
+                var nupkgPath = Path.Combine(packageVersionDirectory, "packageA.2.0.3.nupkg".ToLowerInvariant());
                 var nupkgFileInfo = new FileInfo(nupkgPath);
                 Assert.True(File.Exists(nupkgFileInfo.FullName));
                 Assert.NotEqual(0, nupkgFileInfo.Length);
 
-                var bnupkgPath = Path.Combine(packageVersionDirectory, "lib", "net45", "B.nupkg");
+                var bnupkgPath = Path.Combine(packageVersionDirectory, "lib", "net45", "B.nupkg".ToLowerInvariant());
                 var bnupkgFileInfo = new FileInfo(bnupkgPath);
                 Assert.True(File.Exists(bnupkgFileInfo.FullName));
                 Assert.Equal(0, bnupkgFileInfo.Length);
